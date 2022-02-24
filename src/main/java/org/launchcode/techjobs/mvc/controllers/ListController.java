@@ -29,6 +29,7 @@ public class ListController {
         columnChoices.put("positionType", "Position Type");
         columnChoices.put("coreCompetency", "Skill");
 
+        tableChoices.put("all", "View All");
         tableChoices.put("employer", JobData.getAllEmployers());
         tableChoices.put("location", JobData.getAllLocations());
         tableChoices.put("positionType", JobData.getAllPositionTypes());
@@ -37,6 +38,7 @@ public class ListController {
 
     @GetMapping(value = "")
     public String list(Model model) {
+    //This method renders a view that displays a table of clickable links for the different job categories
         model.addAttribute("columns", columnChoices);
         model.addAttribute("tableChoices", tableChoices);
         model.addAttribute("employers", JobData.getAllEmployers());
@@ -49,6 +51,7 @@ public class ListController {
 
     @GetMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam(required = false) String value) {
+    //This method renders a different view that displays information for the jobs that relate to a selected category
         ArrayList<Job> jobs;
         if (column.equals("all")){
             jobs = JobData.findAll();
